@@ -28,7 +28,7 @@ namespace CentroLlamada.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<ICrearPaciente>(it => new CrearPaciente());
+            services.AddTransient<ICrearPaciente>(it => new PacienteRepository());
             services.AddTransient<ICreateUserApplicationService>(it => new CrearUserApplicationService(it.GetService<ICrearPaciente>()));
         }
 
