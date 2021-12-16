@@ -7,18 +7,12 @@ using System.Text;
 
 namespace CentroLlamada.Infrastructure
 {
-    public class PacientePersistence : ICrearPaciente, IFiltrarPaciente
+    public class PacientePersistence : ICrearPaciente
     {
         private static IList<Domain.Paciente> Pacientes = new List<Domain.Paciente>();
         public PacientePersistence()
         {
 
-        }
-
-        public Domain.Paciente GetPacienteById(int id)
-        {
-            var result = Pacientes.Where(it => IsValid(it));
-            return (Domain.Paciente)result;
         }
 
         private bool IsValid(Domain.Paciente paciente)
