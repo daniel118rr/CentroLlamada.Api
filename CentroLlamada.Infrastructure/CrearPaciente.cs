@@ -7,7 +7,7 @@ namespace CentroLlamada.Infrastructure
 {
     public class CrearPaciente : ICrearPaciente
     {
-        private static IList<Domain.Paciente> Pacientes = new List<Domain.Paciente>();
+        private static List<Domain.Paciente> Pacientes = new List<Domain.Paciente>();
         public CrearPaciente()
         {
 
