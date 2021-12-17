@@ -1,12 +1,12 @@
-﻿using System;
+﻿using CentroLlamada.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace CentroLlamada.Domain.DomainService.Repositories
+namespace CentroLlamada.Application.ApplicationService
 {
-    public interface IRepository<TEntity, TId> where TEntity : Entity<TId>, new() where TId : IComparable, IComparable<TId>
+    public interface ICrudService<TEntity, TId> where TEntity : Entity<TId>, new() where TId : IComparable, IComparable<TId>
     {
         Task<TEntity> InsertAsync(TEntity entity);
         TEntity Insert(TEntity entity);
@@ -33,4 +33,5 @@ namespace CentroLlamada.Domain.DomainService.Repositories
         TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
 
     }
+
 }

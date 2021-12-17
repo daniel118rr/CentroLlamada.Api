@@ -29,7 +29,7 @@ namespace CentroLlamada.Api
         {
             services.AddRazorPages();
             services.AddTransient<ICrearPaciente>(it => new PacienteRepository());
-            services.AddTransient<ICreateUserApplicationService>(it => new CrearUserApplicationService(it.GetService<ICrearPaciente>()));
+            services.AddTransient<ICrudService>(it => new CrudService(it.GetService<ICrearPaciente>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

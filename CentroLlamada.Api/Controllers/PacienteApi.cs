@@ -7,9 +7,9 @@ namespace CentroLlamada.Api.Controllers
     [Route("api/paciente")]
     public class PacienteApi : ControllerBase
     {
-        private readonly ICreateUserApplicationService createUserApplicationService;
+        private readonly ICrudService createUserApplicationService;
 
-        public PacienteApi(ICreateUserApplicationService createUserApplicationService)
+        public PacienteApi(ICrudService createUserApplicationService)
         {
             this.createUserApplicationService = createUserApplicationService;
         }

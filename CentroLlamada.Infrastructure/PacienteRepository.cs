@@ -10,89 +10,107 @@ using System.Threading.Tasks;
 namespace CentroLlamada.Infrastructure
 {
     public class PacienteRepository<TEntity, TId> : IRepository<TEntity, TId>
-        where TEntity : class, new()
+        where TEntity : Entity<TId>, new()
         where TId : IComparable, IComparable<TId>
     {
         private readonly IMongoCollection<TEntity> mongoCollection;
 
-        public TEntity Delete(TEntity entity)
+        public PacienteRepository(string host, string dbName)
         {
-            throw new NotImplementedException();
+            var client = new MongoClient(host);
+            mongoCollection = client.GetDatabase(dbName).GetCollection<TEntity>(nameof(TEntity));
         }
 
-        public Task<TEntity> DeleteAsync(TEntity entity)
+        public bool Delete(TEntity entity)
         {
-            throw new NotImplementedException();
+            return DeleteById(entity.Id);
+        }
+        
+        public async Task<bool> DeleteAsync(TEntity entity)
+        {
+            return await DeleteByIdAsync(entity.Id);
         }
 
-        public TEntity DeleteById(TId id)
+        public bool DeleteById(TId id)
         {
-            throw new NotImplementedException();
+            var result = mongoCollection.DeleteOne(it => it.Id.Equals(id));
+            return result.DeletedCount >= 1;
         }
 
-        public Task<TEntity> DeleteByIdAsyn(TId id)
+        public async Task<bool> DeleteByIdAsync(TId id)
         {
-            throw new NotImplementedException();
+            var result = await mongoCollection.DeleteOneAsync(it => it.Id.Equals(id));
+            return result.DeletedCount >= 1; 
         }
 
         public IEnumerable<TEntity> FindAll()
         {
-            throw new NotImplementedException();
+            return (mongoCollection.Find(it => it != null)).ToEnumerable();
         }
 
-        public Task<IEnumerable<TEntity>> FindAllAsync()
+        public async Task<IEnumerable<TEntity>> FindAllAsync()
         {
-            throw new NotImplementedException();
+            return (await mongoCollection.FindAsync(it => it != null)).ToEnumerable();
         }
 
         public IEnumerable<TEntity> FindByExpression(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (mongoCollection.Find(predicate)).ToEnumerable();
         }
 
-        public Task<IEnumerable<TEntity>> FindByExpressionAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<IEnumerable<TEntity>> FindByExpressionAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (await mongoCollection.FindAsync(predicate)).ToEnumerable();
         }
 
         public TEntity FindById(TId id)
         {
-            throw new NotImplementedException();
+            return mongoCollection.Find(it =>it.Id.Equals(id)).FirstOrDefault();
         }
 
-        public Task<TEntity> FindByIdAsync(TId id)
+        public async Task<TEntity> FindByIdAsync(TId id)
         {
-            throw new NotImplementedException();
+            return (await mongoCollection.FindAsync(it => it.Id.Equals(id))).FirstOrDefault();
         }
 
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return mongoCollection.Find(predicate).FirstOrDefault();
         }
 
-        public Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        public async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return (await mongoCollection.FindAsync(predicate)).FirstOrDefault();
         }
 
         public TEntity Insert(TEntity entity)
         {
-            throw new NotImplementedException();
+            mongoCollection.InsertOne(entity);
+            return entity;
         }
 
-        public Task<TEntity> InsertAsync(TEntity entity)
+        public async Task<TEntity> InsertAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await mongoCollection.InsertOneAsync(entity);
+            return entity;
         }
 
         public TEntity Update(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (Delete(entity))
+            {
+                Insert(entity);
+            }
+            return default;
         }
 
-        public Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            if (await DeleteAsync(entity))
+            {
+                return await InsertAsync (entity);
+            }
+            return default;
         }
     }
 }
