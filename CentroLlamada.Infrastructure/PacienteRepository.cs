@@ -1,6 +1,7 @@
 ﻿using CentroLlamada.Domain;
 using CentroLlamada.Domain.DomainService;
 using CentroLlamada.Domain.DomainService.Repositories;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace CentroLlamada.Infrastructure
         {
             return DeleteById(entity.Id);
         }
-        
+
         public async Task<bool> DeleteAsync(TEntity entity)
         {
             return await DeleteByIdAsync(entity.Id);
@@ -40,17 +41,17 @@ namespace CentroLlamada.Infrastructure
         public async Task<bool> DeleteByIdAsync(TId id)
         {
             var result = await mongoCollection.DeleteOneAsync(it => it.Id.Equals(id));
-            return result.DeletedCount >= 1; 
+            return result.DeletedCount >= 1;
         }
 
         public IEnumerable<TEntity> FindAll()
         {
-            return (mongoCollection.Find(it => it != null)).ToEnumerable();
+            return mongoCollection.Find(new MongoDB.Bson.BsonDocument()).ToEnumerable();
         }
 
         public async Task<IEnumerable<TEntity>> FindAllAsync()
         {
-            return (await mongoCollection.FindAsync(it => it != null)).ToEnumerable();
+            return (await mongoCollection.FindAsync(new BsonDocument())).ToEnumerable();
         }
 
         public IEnumerable<TEntity> FindByExpression(Expression<Func<TEntity, bool>> predicate)

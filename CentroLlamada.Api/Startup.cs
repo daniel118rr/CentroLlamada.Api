@@ -1,7 +1,4 @@
-using CentroLlamada.Application.ApplicationService;
-using CentroLlamada.Application.ApplicationService.Impl;
-using CentroLlamada.Domain.DomainService;
-using CentroLlamada.Infrastructure;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,9 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace CentroLlamada.Api
 {
@@ -28,8 +23,8 @@ namespace CentroLlamada.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<ICrearPaciente>(it => new PacienteRepository());
-            services.AddTransient<ICrudService>(it => new CrudService(it.GetService<ICrearPaciente>()));
+            services.AddControllers();
+            services.AddEntity<CentroLlamada.Domain.Paciente, string>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

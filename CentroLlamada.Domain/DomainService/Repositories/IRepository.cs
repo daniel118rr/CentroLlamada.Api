@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CentroLlamada.Domain.DomainService.Repositories
 {
-    public interface IRepository<TEntity, TId> where TEntity : Entity<TId>, new() where TId : IComparable, IComparable<TId>
+    public interface IRepository<TEntity, TId> 
+        where TEntity : Entity<TId>, new() 
+        where TId : IComparable, IComparable<TId>
     {
         Task<TEntity> InsertAsync(TEntity entity);
         TEntity Insert(TEntity entity);
