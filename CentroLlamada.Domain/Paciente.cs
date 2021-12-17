@@ -9,7 +9,8 @@ namespace CentroLlamada.Domain
         public string Apellido { get; set; }
         public string Edad { get; set; }
         public string Direccion { get; set; }
+        public string Ciudad { get; set; }
         public string Telefono { get; set; }
-        //public IList<HistoriaPaciente> HistoriaClinica { get; set; }
+        public IList<HistoriaPaciente> HistoriaClinica { get; set; }
     }
 }
