@@ -6,6 +6,7 @@ namespace CentroLlamada.Domain
 {
     public class HistoriaPaciente
     {
+        public string id { get; set;  }
         public string NumeroRadicado { get; set; }
         public IEnumerable<EnumDiagnostico> Diagnostico { get; set; }
         public string Descripcion { get; set; }
