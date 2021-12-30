@@ -11,6 +11,5 @@ namespace CentroLlamada.Domain
         public string Direccion { get; set; }
         public string Ciudad { get; set; }
         public string Telefono { get; set; }
-        public IList<HistoriaPaciente> HistoriaClinica { get; set; }
     }
 }

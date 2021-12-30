@@ -4,11 +4,11 @@ using System.Text;
 
 namespace CentroLlamada.Domain
 {
-    public class HistoriaPaciente
+    public class HistoriaPaciente : Entity<string>
     {
-        public string id { get; set;  }
+        public string PacienteId { get; set; }
         public string NumeroRadicado { get; set; }
-        public IEnumerable<EnumDiagnostico> Diagnostico { get; set; }
+        public Diagnostico Diagnostico { get; set; }
         public string Descripcion { get; set; }
     }
 }

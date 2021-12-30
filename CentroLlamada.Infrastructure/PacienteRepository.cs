@@ -19,7 +19,7 @@ namespace CentroLlamada.Infrastructure
         public PacienteRepository(string host, string dbName)
         {
             var client = new MongoClient(host);
-            mongoCollection = client.GetDatabase(dbName).GetCollection<TEntity>(nameof(TEntity));
+            mongoCollection = client.GetDatabase(dbName).GetCollection<TEntity>(typeof(TEntity).Name);
         }
 
         public bool Delete(TEntity entity)

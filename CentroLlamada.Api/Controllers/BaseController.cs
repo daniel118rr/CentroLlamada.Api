@@ -12,7 +12,7 @@ namespace CentroLlamada.Api.Controllers
         where TEntity : Entity<TId>, new()
         where TId : IComparable, IComparable<TId>
     {
-        private readonly ICrudService<TEntity, TId> crudService;
+        public readonly ICrudService<TEntity, TId> crudService;
 
         public BaseController(ICrudService<TEntity, TId> crudService)
         {
@@ -43,7 +43,7 @@ namespace CentroLlamada.Api.Controllers
             return await this.crudService.FindAllAsync();
         }
 
-        [HttpDelete]
+        [HttpGet]
         [Route("{id}")]
         public async Task<TEntity> Get(TId id)
         {

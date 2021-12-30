@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CentroLlamada.Domain
 {
-    public enum EnumDiagnostico
+    public enum Diagnostico
     {
         Sintomatico, Riesgo, Sindrome, Provocacion
     }

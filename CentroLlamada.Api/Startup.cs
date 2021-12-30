@@ -24,6 +24,7 @@ namespace CentroLlamada.Api
         {
             services.AddControllers();
             services.AddEntity<CentroLlamada.Domain.Paciente, string>();
+            services.AddEntity<CentroLlamada.Domain.HistoriaPaciente, string>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

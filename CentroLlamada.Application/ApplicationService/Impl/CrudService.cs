@@ -42,9 +42,9 @@ namespace CentroLlamada.Application.ApplicationService.Impl
             return repository.FindAll();
         }
 
-        public Task<IEnumerable<TEntity>> FindAllAsync()
+        public async Task<IEnumerable<TEntity>> FindAllAsync()
         {
-            return repository.FindAllAsync();
+            return await repository.FindAllAsync();
         }
 
         public IEnumerable<TEntity> FindByExpression(Expression<Func<TEntity, bool>> predicate)
@@ -79,11 +79,13 @@ namespace CentroLlamada.Application.ApplicationService.Impl
 
         public TEntity Insert(TEntity entity)
         {
+            entity.Id = GenerateId();
             return repository.Insert(entity);
         }
 
         public Task<TEntity> InsertAsync(TEntity entity)
         {
+            entity.Id = GenerateId();
             return repository.InsertAsync(entity);
         }
 
@@ -95,6 +97,11 @@ namespace CentroLlamada.Application.ApplicationService.Impl
         public Task<TEntity> UpdateAsync(TEntity entity)
         {
             return repository.UpdateAsync(entity);
+        }
+
+        private TId GenerateId()
+        {
+            return (TId)(IComparable)Guid.NewGuid().ToString().Replace("-","");
         }
     }
 }
