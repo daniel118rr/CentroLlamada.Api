@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace CentroLlamada.Domain.DomainService.Repositories
 {
-    public interface IRepository<TEntity, TId> where TEntity : class, new() where TId : IComparable, IComparable<TId>
+    public interface IRepository<TEntity, TId> 
+        where TEntity : Entity<TId>, new() 
+        where TId : IComparable, IComparable<TId>
     {
         Task<TEntity> InsertAsync(TEntity entity);
         TEntity Insert(TEntity entity);
@@ -14,11 +16,11 @@ namespace CentroLlamada.Domain.DomainService.Repositories
         Task<TEntity> UpdateAsync(TEntity entity);
         TEntity Update(TEntity entity);
 
-        Task<TEntity> DeleteAsync(TEntity entity);
-        TEntity Delete(TEntity entity);
+        Task<bool> DeleteAsync(TEntity entity);
+        bool Delete(TEntity entity);
 
-        Task<TEntity> DeleteByIdAsyn(TId id);
-        TEntity DeleteById(TId id);
+        Task<bool> DeleteByIdAsync(TId id);
+        bool DeleteById(TId id);
 
         Task<TEntity> FindByIdAsync(TId id);
         TEntity FindById(TId id);

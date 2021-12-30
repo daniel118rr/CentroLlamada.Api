@@ -1,23 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CentroLlamada.Application.ApplicationService;
+using CentroLlamada.Domain;
 
 namespace CentroLlamada.Api.Controllers
 {
     [ApiController]
     [Route("api/paciente")]
-    public class PacienteApi : ControllerBase
+    public class PacienteApi : BaseController<CentroLlamada.Domain.Paciente, string>
     {
-        private readonly ICreateUserApplicationService createUserApplicationService;
-
-        public PacienteApi(ICreateUserApplicationService createUserApplicationService)
+        public PacienteApi(ICrudService<CentroLlamada.Domain.Paciente, string> crudService) : base(crudService)
         {
-            this.createUserApplicationService = createUserApplicationService;
-        }
-
-        [HttpPost]
-        public CentroLlamada.Domain.Paciente CrearPaciente(CentroLlamada.Domain.Paciente paciente)
-        {
-            return createUserApplicationService.CrearPaciente(paciente);
         }
     }
 }

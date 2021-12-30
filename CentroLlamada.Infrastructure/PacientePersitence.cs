@@ -15,11 +15,6 @@ namespace CentroLlamada.Infrastructure
 
         }
 
-        private bool IsValid(Domain.Paciente paciente)
-        {
-            return true;
-        }
-
         Domain.Paciente ICrearPaciente.CrearPaciente(Domain.Paciente paciente)
         {
             Pacientes.Add(paciente);
